@@ -12,17 +12,17 @@
     <fileSets>
         <fileSet>
             <directory>target/dest/conf/</directory>
-            <outputDirectory>cloud-client/conf</outputDirectory>
+            <outputDirectory>cloud-server/conf</outputDirectory>
             <fileMode>0644</fileMode>
         </fileSet>
         <fileSet>
             <directory>target/dest/bin/</directory>
-            <outputDirectory>cloud-client/bin</outputDirectory>
+            <outputDirectory>cloud-serve/bin</outputDirectory>
             <fileMode>0755</fileMode>
         </fileSet>
         <fileSet>
             <directory>target/dest/lib/</directory>
-            <outputDirectory>cloud-client/lib</outputDirectory>
+            <outputDirectory>cloud-serve/lib</outputDirectory>
             <fileMode>0644</fileMode>
         </fileSet>
     </fileSets>

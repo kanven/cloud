@@ -8,11 +8,11 @@ cd ..\bin
 if ""%1"" == ""debug"" goto debug
 if ""%1"" == ""jmx"" goto jmx
 
-java -Xms64m -Xmx256m -XX:MaxPermSize=64M -classpath ..\conf;%LIB_JARS% com.kanven.cloud.client.Bootstrap
+java -Xms64m -Xmx256m -XX:MaxPermSize=64M -classpath ..\conf;%LIB_JARS% com.kanven.cloud.server.Bootstrap
 goto end
 
 :debug
-java -Xms64m -Xmx256m -XX:MaxPermSize=64M -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n -classpath ..\conf;%LIB_JARS% com.kanven.cloud.client.Bootstrap
+java -Xms64m -Xmx256m -XX:MaxPermSize=64M -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n -classpath ..\conf;%LIB_JARS% com.kanven.cloud.server.Bootstrap
 goto end
 
 :jmx

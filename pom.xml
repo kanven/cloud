@@ -17,6 +17,7 @@
 		<springframework.boot.version>1.5.6.RELEASE</springframework.boot.version>
 		<log4j2.version>2.9.1</log4j2.version>
 		<slf4j.version>1.7.13</slf4j.version>
+		<zipkin.version>4.8.0</zipkin.version>
 	</properties>
 
 	<modules>
@@ -57,6 +58,21 @@
 				<artifactId>spring-test</artifactId>
 				<version>${springframework.version}</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.zipkin.brave</groupId>
+				<artifactId>brave</artifactId>
+				<version>${zipkin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.zipkin.brave</groupId>
+				<artifactId>brave-instrumentation-grpc</artifactId>
+				<version>${zipkin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.zipkin.brave</groupId>
+				<artifactId>brave-grpc</artifactId>
+				<version>${zipkin.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
