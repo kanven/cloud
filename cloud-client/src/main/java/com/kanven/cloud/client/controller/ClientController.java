@@ -15,7 +15,7 @@ public class ClientController {
 
 	@RequestMapping(value = "/test/{name}")
 	public String brave(@PathVariable String name) {
-		return template.getForObject("http://localhost:8080/cloud/brave/hello/{name}", String.class, name);
+		return template.getForObject("http://localhost:8090/cloud/brave/hello/{name}", String.class, name);
 	}
 
 }

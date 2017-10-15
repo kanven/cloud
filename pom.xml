@@ -15,6 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springframework.version>4.3.10.RELEASE</springframework.version>
 		<springframework.boot.version>1.5.6.RELEASE</springframework.boot.version>
+		<motan.versin>0.3.0</motan.versin>
 		<log4j2.version>2.9.1</log4j2.version>
 		<slf4j.version>1.7.13</slf4j.version>
 		<zipkin.version>4.8.0</zipkin.version>
@@ -29,11 +30,6 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${springframework.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aspects</artifactId>
@@ -88,11 +84,6 @@
 			</dependency>
 			<dependency>
 				<groupId>io.zipkin.brave</groupId>
-				<artifactId>brave-grpc</artifactId>
-				<version>${zipkin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.zipkin.brave</groupId>
 				<artifactId>brave-instrumentation-spring-web</artifactId>
 				<version>${zipkin.version}</version>
 			</dependency>
@@ -105,6 +96,26 @@
 				<groupId>io.zipkin.reporter2</groupId>
 				<artifactId>zipkin-sender-okhttp3</artifactId>
 				<version>2.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.weibo</groupId>
+				<artifactId>motan-core</artifactId>
+				<version>${motan.versin}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.weibo</groupId>
+				<artifactId>motan-transport-netty</artifactId>
+				<version>${motan.versin}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.weibo</groupId>
+				<artifactId>motan-springsupport</artifactId>
+				<version>${motan.versin}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.weibo</groupId>
+				<artifactId>motan-registry-zookeeper</artifactId>
+				<version>${motan.versin}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
