@@ -1,4 +1,4 @@
-package com.kanven.cloud.client.config;
+package com.kanven.cloud.common.config;
 
 import java.util.ArrayList;
 import java.util.List;

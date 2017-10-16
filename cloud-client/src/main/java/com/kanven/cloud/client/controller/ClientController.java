@@ -13,6 +13,7 @@ public class ClientController {
 	@Autowired
 	private RestTemplate template;
 
+
 	@RequestMapping(value = "/test/{name}")
 	public String brave(@PathVariable String name) {
 		return template.getForObject("http://localhost:8090/cloud/brave/hello/{name}", String.class, name);
