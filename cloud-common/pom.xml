@@ -64,6 +64,16 @@
 			<artifactId>brave-instrumentation-grpc</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-all</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.auto.value</groupId>
+			<artifactId>auto-value</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>io.zipkin.reporter2</groupId>
 			<artifactId>zipkin-sender-okhttp3</artifactId>
 		</dependency>

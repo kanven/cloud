@@ -2,13 +2,12 @@ package com.kanven.cloud.common.motan.brave;
 
 import java.util.Map;
 
-import com.weibo.api.motan.filter.Filter;
-import com.weibo.api.motan.rpc.Caller;
 import com.weibo.api.motan.rpc.Request;
 import com.weibo.api.motan.rpc.Response;
 
 import brave.Span;
 import brave.Tracer;
+import brave.Tracer.SpanInScope;
 import brave.propagation.Propagation.Getter;
 import brave.propagation.TraceContext.Extractor;
 
@@ -17,7 +16,7 @@ import brave.propagation.TraceContext.Extractor;
  * @author kanven
  *
  */
-public class MotanServerFilter implements Filter {
+class MotanServerInterceptor implements HandlerInterceptor {
 
 	final Tracer tracer;
 
@@ -25,7 +24,9 @@ public class MotanServerFilter implements Filter {
 
 	final MontanServerHandler handler;
 
-	MotanServerFilter(MontanTracing tracing) {
+	final MontanParser parser = new MontanParser();
+
+	MotanServerInterceptor(MontanTracing tracing) {
 		this.tracer = tracing.tracing().tracer();
 		this.extractor = tracing.tracing().propagation().extractor(new Getter<Map<String, String>, String>() {
 			@Override
@@ -37,15 +38,21 @@ public class MotanServerFilter implements Filter {
 	}
 
 	@Override
-	public Response filter(Caller<?> caller, Request request) {
+	public void beforHandler(Request request) {
 		Span span = handler.handleReceive(extractor, request.getAttachments(), request);
-		Response response = null;
-		try {
-			response = caller.call(request);
+		try (SpanInScope scope = tracer.withSpanInScope(span)) {
+			parser.onRequest(span, request);
 		} finally {
-			handler.handleSend(response, response.getException(), span);
 		}
-		return response;
+	}
+
+	@Override
+	public void afterCompletion(Request request, Response response) {
+		Span span = tracer.currentSpan();
+		if (span == null) {
+			return;
+		}
+		handler.handleSend(response, response.getException(), span);
 	}
 
 }
