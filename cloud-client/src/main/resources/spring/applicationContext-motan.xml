@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:motan="http://api.weibo.com/schema/motan"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd">
+
+
+	<bean id="tracingFactory" class="com.kanven.cloud.common.motan.brave.BraveTracingFactory">
+		<property name="url" value="${brave.url}"></property>
+		<property name="serverName" value="${app.name}"></property>
+		<property name="host" value="${server.address}"></property>
+		<property name="port" value="${server.port}"></property>
+	</bean>
+
+	<bean class="com.kanven.cloud.common.motan.brave.MotanTracingContext">
+		<property name="tracingFactory" ref="tracingFactory"></property>
+	</bean>
+
+	<motan:registry regProtocol="zookeeper" address="${zk.address}" />
+
+	<motan:basicReferer id="basicReferer"
+		requestTimeout="${motan.requestTimeout}" connectTimeout="${motan.connectTimeout}"
+		group="${motan.group}" filter="bracing" />
+
+	<motan:referer id="braveService"
+		interface="com.kanven.server.server.api.BraveService" basicReferer="basicReferer" />
+
+</beans>

@@ -26,8 +26,8 @@ import zipkin2.reporter.AsyncReporter;
 import zipkin2.reporter.Sender;
 import zipkin2.reporter.okhttp3.OkHttpSender;
 
-@Configuration
-@Import({ TracingClientHttpRequestInterceptor.class, TracingHandlerInterceptor.class })
+//@Configuration
+//Import({ TracingClientHttpRequestInterceptor.class, TracingHandlerInterceptor.class })
 public class TracingConfig extends WebMvcConfigurerAdapter {
 
 	@Value("${brave.url}")

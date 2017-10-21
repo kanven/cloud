@@ -5,10 +5,11 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.weibo.api.motan.rpc.Request;
+import com.weibo.api.motan.rpc.URL;
 
 import brave.Span;
 
-public class MontanParser {
+public class MotanParser {
 
 	private <T> String join(T[] arrs) {
 		StringBuilder builder = new StringBuilder();
@@ -26,18 +27,33 @@ public class MontanParser {
 		return builder.toString();
 	}
 
-	public void onRequest(Span span, Request request) {
+	public void onRequest(Span span, Request request, URL url) {
 		span.tag("requestId", request.getRequestId() + "");
 		span.tag("method",
 				request.getInterfaceName() + "." + request.getMethodName() + "(" + request.getParamtersDesc() + ")");
 		span.tag("params", join(request.getArguments()));
 		span.tag("retries", request.getRetries() + "");
+		span.tag("rpc.protocol", url.getProtocol());
+		span.tag("port", url.getPort() + "");
+		span.tag("host", url.getHost());
 		span.tag("protocol.version", request.getRpcProtocolVersion() + "");
+
 		Map<String, String> attachments = request.getAttachments();
 		if (attachments != null && attachments.size() > 0) {
 			Set<Entry<String, String>> entries = attachments.entrySet();
 			for (Entry<String, String> entry : entries) {
-				span.tag("attachment." + entry.getKey(), entry.getValue());
+				String key = entry.getKey();
+				switch (key) {
+				case "X-B3-Sampled":
+				case "X-B3-SpanId":
+				case "X-B3-TraceId":
+				case "X-B3-ParentSpanId":
+				case "X-B3-Flags":
+				case "X-Forwarded-For":
+					continue;
+				default:
+					span.tag("attachment." + key, entry.getValue());
+				}
 			}
 		}
 	}

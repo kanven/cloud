@@ -2,8 +2,10 @@ package com.kanven.cloud.common.motan.brave;
 
 import java.util.Map;
 
+import com.weibo.api.motan.rpc.Caller;
 import com.weibo.api.motan.rpc.Request;
 import com.weibo.api.motan.rpc.Response;
+import com.weibo.api.motan.rpc.URL;
 
 import brave.Span;
 import brave.Tracer;
@@ -11,17 +13,19 @@ import brave.Tracer.SpanInScope;
 import brave.propagation.Propagation.Setter;
 import brave.propagation.TraceContext;
 
-class MontanClientInterceptor implements HandlerInterceptor {
+class MotanClientInterceptor {
 
 	private final Tracer tracer;
 
 	private final TraceContext.Injector<Map<String, String>> injector;
 
-	private final MontanParser parser = new MontanParser();
+	private final MotanParser parser = new MotanParser();
 
-	private final MontanClientHandler handler;
+	private final MotanClientHandler handler;
 
-	public MontanClientInterceptor(MontanTracing tracing) {
+	private Span span;
+
+	public MotanClientInterceptor(MotanTracing tracing) {
 		this.tracer = tracing.tracing().tracer();
 		this.injector = tracing.tracing().propagation().injector(new Setter<Map<String, String>, String>() {
 			@Override
@@ -29,27 +33,21 @@ class MontanClientInterceptor implements HandlerInterceptor {
 				carrier.remove(key);
 				if (value != null) {
 					carrier.put(key, value);
-				}
+				} 
 			}
 		});
-		this.handler = new MontanClientHandler(this.tracer);
+		this.handler = new MotanClientHandler(tracing);
 	}
 
-	@Override
-	public void beforHandler(Request request) {
-		Span span = handler.handleReceive(injector, request.getAttachments(), request);
+	public void beforHandler(Request request, Caller<?> caller, URL url) {
+		this.span = handler.handleReceive(injector, request.getAttachments(), request, caller);
 		try (SpanInScope scope = tracer.withSpanInScope(span)) {
-			parser.onRequest(span, request);
+			//parser.onRequest(span, request, url);
 		} finally {
 		}
 	}
 
-	@Override
-	public void afterCompletion(Request request, Response response) {
-		Span span = tracer.currentSpan();
-		if (span == null) {
-			return;
-		}
+	public void afterCompletion(Response response) {
 		handler.handleSend(response, response.getException(), span);
 	}
 

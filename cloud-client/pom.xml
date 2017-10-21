@@ -15,13 +15,29 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<deploy.dir>${project.build.directory}/dest</deploy.dir>
+		<cloud.version>1.0.0-SNAPSHOT</cloud.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.kanven</groupId>
 			<artifactId>cloud-common</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${cloud.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kanven</groupId>
+			<artifactId>cloud-server-sdk</artifactId>
+			<version>${cloud.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
