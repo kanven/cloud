@@ -42,7 +42,7 @@ class MotanClientInterceptor {
 	public void beforHandler(Request request, Caller<?> caller, URL url) {
 		this.span = handler.handleReceive(injector, request.getAttachments(), request, caller);
 		try (SpanInScope scope = tracer.withSpanInScope(span)) {
-			//parser.onRequest(span, request, url);
+			parser.onRequest(span, request, url);
 		} finally {
 		}
 	}

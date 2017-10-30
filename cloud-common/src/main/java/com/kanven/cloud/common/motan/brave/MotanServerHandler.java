@@ -39,7 +39,6 @@ class MotanServerHandler extends AbstractMotanHandler {
 		}
 		span.kind(Span.Kind.SERVER);
 		Endpoint.Builder builder = Endpoint.newBuilder();
-		//builder.serviceName(serverName);
 		Map<String, String> attachments = request.getAttachments();
 		String forwarded = attachments.remove("X-Forwarded-For");
 		if (forwarded != null && !"".equals(forwarded)) {
@@ -53,6 +52,7 @@ class MotanServerHandler extends AbstractMotanHandler {
 			}
 		}
 		span.remoteEndpoint(builder.build());
+		span.name(request.getInterfaceName() + "." + request.getMethodName());
 		return span.start();
 	}
 

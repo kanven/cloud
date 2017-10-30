@@ -1,7 +1,9 @@
 package com.kanven.cloud.common.motan.brave;
 
 import brave.Tracing;
-import zipkin2.Endpoint;
+import brave.context.log4j2.ThreadContextCurrentTraceContext;
+import brave.propagation.StrictCurrentTraceContext;
+import brave.sampler.Sampler;
 import zipkin2.reporter.AsyncReporter;
 import zipkin2.reporter.okhttp3.OkHttpSender;
 
@@ -27,10 +29,10 @@ public class BraveTracingFactory {
 	public Tracing getTracing() {
 		OkHttpSender sender = OkHttpSender.create(url);
 		AsyncReporter<zipkin2.Span> reporter = AsyncReporter.create(sender);
-//		Endpoint.Builder builder = Endpoint.newBuilder();
-//		builder.ip(host).port(port);
-		return Tracing.newBuilder().localServiceName(serverName)/*.localEndpoint(builder.build())*/.spanReporter(reporter)
-				.build();
+		return Tracing.newBuilder().localServiceName(serverName).spanReporter(reporter)
+				.currentTraceContext(ThreadContextCurrentTraceContext.create())
+				/*.currentTraceContext(ThreadContextCurrentTraceContext.create(new StrictCurrentTraceContext()))*/
+				.sampler(Sampler.ALWAYS_SAMPLE).build();
 	}
 
 	public String getUrl() {

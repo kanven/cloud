@@ -45,7 +45,7 @@ class MotanServerInterceptor {
 	public void beforHandler(final Request request, Caller<?> caller, final URL url) {
 		Map<String, String> attachements = request.getAttachments();
 		Span span = handler.handleReceive(extractor, attachements, request);
-		parser.onRequest(span, request, url);
+		//parser.onRequest(span, request, url);
 		local.set(tracer.withSpanInScope(span));
 	}
 
