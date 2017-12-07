@@ -1,4 +1,4 @@
-package com.kanven.cloud.common.motan.brave;
+package com.kanven.cloud.common.motan.filter.tracing;
 
 import com.weibo.api.motan.core.extension.Scope;
 import com.weibo.api.motan.core.extension.Spi;
@@ -12,8 +12,8 @@ import com.weibo.api.motan.rpc.URL;
 
 /**
  * 
- * @author kanven
- *
+ * @author 蒋远龙
+ * 
  */
 @Spi(scope = Scope.SINGLETON)
 @SpiMeta(name = "bracing")
@@ -21,20 +21,19 @@ public class MotanTracingFilter implements Filter {
 
 	@Override
 	public Response filter(Caller<?> caller, Request request) {
-		if (MotanTracingContext.getTracing() == null) {
-			return caller.call(request);
-		}
-		final MotanServerInterceptor server = MotanTracingContext.getServer();
-		final MotanClientInterceptor client = MotanTracingContext.getClient();
 		final URL url = caller.getUrl();
 		boolean isServer = caller instanceof Provider ? true : false;
 		Response response = null;
 		if (isServer) { // 服务端
-			server.beforHandler(request, caller, url);
+			final MotanServerInterceptor server = MotanTracingContext
+					.getInstance().getServer();
+			server.beforHandler(request, url);
 			response = caller.call(request);
 			server.afterCompletion(request, response);
 		} else { // 客户端
-			client.beforHandler(request,caller, url);
+			final MotanClientInterceptor client = MotanTracingContext
+					.getInstance().getClient();
+			client.beforHandler(request, caller, url);
 			response = caller.call(request);
 			client.afterCompletion(response);
 		}

@@ -23,8 +23,7 @@ import brave.spring.webmvc.TracingHandlerInterceptor;
 import zipkin2.Endpoint;
 import zipkin2.Span;
 import zipkin2.reporter.AsyncReporter;
-import zipkin2.reporter.Sender;
-import zipkin2.reporter.okhttp3.OkHttpSender;
+import zipkin2.reporter.kafka11.KafkaSender;
 
 @Configuration
 @Import({ TracingClientHttpRequestInterceptor.class, TracingHandlerInterceptor.class })
@@ -66,12 +65,14 @@ public class TracingConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	HttpTracing tracing() {
-		Sender sender = OkHttpSender.create(url);
+		// Sender sender = OkHttpSender.create(url);
+		KafkaSender sender = KafkaSender.create("127.0.0.1:9092");
 		AsyncReporter<Span> reporter = AsyncReporter.create(sender);
 		Endpoint endpoint = Endpoint.newBuilder().serviceName(serverName).ip(address).port(port).build();
 		Tracing tracing = Tracing.newBuilder().localEndpoint(endpoint).spanReporter(reporter)
 				.currentTraceContext(ThreadContextCurrentTraceContext.create()).build();
 		return HttpTracing.create(tracing);
+
 	}
 
 	@Override

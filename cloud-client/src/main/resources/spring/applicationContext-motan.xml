@@ -22,7 +22,7 @@
 
 	<motan:basicReferer id="basicReferer"
 		requestTimeout="${motan.requestTimeout}" connectTimeout="${motan.connectTimeout}"
-		group="${motan.group}" />
+		group="${motan.group}" filter="bracing" />
 
 	<motan:referer id="braveService"
 		interface="com.kanven.server.server.api.BraveService" basicReferer="basicReferer" />

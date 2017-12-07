@@ -20,7 +20,7 @@
 	<motan:registry regProtocol="zookeeper" address="${zk.address}" />
 
 	<motan:basicService export="${motan.port}"
-		shareChannel="true" group="${motan.group}" />
+		shareChannel="true" group="${motan.group}" filter="bracing" />
 
 	<bean id="braveService" class="com.kanven.cloud.server.server.impl.BraveServiceImpl" />
 

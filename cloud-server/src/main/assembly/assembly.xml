@@ -17,12 +17,12 @@
         </fileSet>
         <fileSet>
             <directory>target/dest/bin/</directory>
-            <outputDirectory>cloud-serve/bin</outputDirectory>
+            <outputDirectory>cloud-server/bin</outputDirectory>
             <fileMode>0755</fileMode>
         </fileSet>
         <fileSet>
             <directory>target/dest/lib/</directory>
-            <outputDirectory>cloud-serve/lib</outputDirectory>
+            <outputDirectory>cloud-server/lib</outputDirectory>
             <fileMode>0644</fileMode>
         </fileSet>
     </fileSets>
