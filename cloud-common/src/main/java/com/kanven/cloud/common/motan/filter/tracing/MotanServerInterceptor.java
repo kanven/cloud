@@ -17,7 +17,7 @@ import brave.propagation.TraceContext.Extractor;
 
 /**
  * 
- * @author 蒋远龙
+ * @author kanven
  * 
  */
 class MotanServerInterceptor {

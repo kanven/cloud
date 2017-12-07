@@ -9,7 +9,7 @@ import brave.propagation.TraceContextOrSamplingFlags;
 
 /**
  * 
- * @author 蒋远龙
+ * @author kanven
  * 
  */
 public class BraveServerHandler extends AbstractBraveHandler {

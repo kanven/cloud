@@ -14,7 +14,7 @@ import zipkin2.Endpoint;
 
 /**
  * 
- * @author 蒋远龙
+ * @author kanven
  *
  */
 public class BraveClientHandler extends AbstractBraveHandler {

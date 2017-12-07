@@ -4,7 +4,7 @@ import com.kanven.cloud.common.brave.TracingFactory;
 
 /**
  * 
- * @author 蒋远龙
+ * @author kanven
  * 
  */
 class MotanTracingContext {

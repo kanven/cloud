@@ -12,7 +12,7 @@ import com.weibo.api.motan.rpc.URL;
 
 /**
  * 
- * @author 蒋远龙
+ * @author kanven
  * 
  */
 @Spi(scope = Scope.SINGLETON)

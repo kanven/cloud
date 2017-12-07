@@ -26,11 +26,11 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
+import com.kanven.cloud.common.brave.TracingFactory;
+
 import brave.httpasyncclient.TracingHttpAsyncClientBuilder;
 import brave.httpclient.TracingHttpClientBuilder;
-
-import com.alibaba.fastjson.JSON;
-import com.nykj.msg.common.brave.TracingFactory;
 
 /**
  * HTTP工具类

@@ -7,7 +7,7 @@ import brave.Tracing;
 
 /**
  * 
- * @author 蒋远龙
+ * @author kanven
  * 
  */
 abstract class AbstractBraveHandler {

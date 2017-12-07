@@ -117,6 +117,16 @@
 				<version>${zipkin.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>io.zipkin.brave</groupId>
+				<artifactId>brave-instrumentation-httpasyncclient</artifactId>
+				<version>${zipkin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.zipkin.brave</groupId>
+				<artifactId>brave-instrumentation-httpclient</artifactId>
+				<version>${zipkin.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>io.zipkin.java</groupId>
 				<artifactId>zipkin-storage-mysql</artifactId>
 				<version>2.2.1</version>

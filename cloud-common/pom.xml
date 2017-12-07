@@ -64,6 +64,14 @@
 			<artifactId>brave-instrumentation-grpc</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-instrumentation-httpasyncclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.brave</groupId>
+			<artifactId>brave-instrumentation-httpclient</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>io.grpc</groupId>
 			<artifactId>grpc-all</artifactId>
 			<scope>provided</scope>

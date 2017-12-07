@@ -14,7 +14,7 @@ import brave.sampler.Sampler;
 
 /**
  * 
- * @author 蒋远龙
+ * @author kanven
  * 
  */
 public class TracingFactory {
