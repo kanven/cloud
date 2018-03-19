@@ -13,7 +13,7 @@ import net.sf.cglib.proxy.Enhancer;
 /**
  * 动态代理CGLIB实现
  * 
- * @author 蒋远龙
+ * @author kanven
  * 
  */
 @SpiMeta(name = "cglib")
